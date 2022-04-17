@@ -26,6 +26,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "securedfilesreact", "secure
 		SlnRelativePath = "securedfilesreact\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuredFilesProject.Infrastructure", "SecuredFilesProject.Infrastructure\SecuredFilesProject.Infrastructure.csproj", "{2F70C833-3C9C-4EEB-9852-E9E61C918A3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{F7439B04-CEEE-457A-A849-DD225219B86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7439B04-CEEE-457A-A849-DD225219B86A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7439B04-CEEE-457A-A849-DD225219B86A}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{2F70C833-3C9C-4EEB-9852-E9E61C918A3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F70C833-3C9C-4EEB-9852-E9E61C918A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F70C833-3C9C-4EEB-9852-E9E61C918A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F70C833-3C9C-4EEB-9852-E9E61C918A3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
