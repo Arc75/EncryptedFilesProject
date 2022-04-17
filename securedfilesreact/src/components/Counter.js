@@ -18,7 +18,7 @@ export class Counter extends Component {
 
   async getA() {
     debugger;
-    let response = await fetch(variables.API_URL+'Files', {
+    let response = await fetch(variables.API_URL+variables.Files, {
       //mode:'no-cors',
       method: "GET",
       headers:{

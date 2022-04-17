@@ -1,16 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using SecuredFilesProject.Infrastructure.Interfaces;
+using SecuredFilesProject.Infrastructure.Models;
 using System.Threading.Tasks;
 using System.Web.Http.Cors;
-using Firebase.Database;
-using Firebase.Database.Query;
-using System.Linq;
-using System.Threading.Tasks;
-using SecuredFilesProject.Models.Request;
-using SecuredFilesProject.Infrastructure.Models;
-using SecuredFilesProject.Infrastructure.Interfaces;
 
 namespace SecuredFilesProject.Controllers
 {
@@ -26,7 +18,7 @@ namespace SecuredFilesProject.Controllers
         public async Task<string> GetA()
         {
             //Save non identifying data to Firebase
-            var login = new LoginModel { Username = "1", Password = "1" };
+            var login = new LoginRepositoryModel { Email = "1", Password = "1" };
             //var firebaseClient = new FirebaseClient("https://dfiles-f71a3-default-rtdb.europe-west1.firebasedatabase.app/");
             //var result = await firebaseClient
             //  .Child("Users/" + 1 + "/Logins")
@@ -41,7 +33,7 @@ namespace SecuredFilesProject.Controllers
 
             var context = Context.Add(login).Result;
 
-            var result = ((LoginModel)Context.GetAsync<LoginModel>(0).Result).Password;
+            var result = ((LoginRepositoryModel)Context.GetAsync<LoginRepositoryModel>(0).Result).Password;
 
 
             return "AAAAAAAA";

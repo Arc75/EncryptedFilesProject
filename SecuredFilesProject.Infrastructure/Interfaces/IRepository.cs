@@ -21,5 +21,7 @@ namespace SecuredFilesProject.Infrastructure.Interfaces
         Task<List<IModel>> GetAllSortedAsync(Expression<Func<IModel, int>> orderBy);
         Task<List<IModel>> GetAllSortedAsync(Expression<Func<IModel, bool>> whereClause, Expression<Func<IModel, int>> orderBy);
         Task<bool> Add(IModel obj);
+        Task<IModel> CreateUserWithPasswordAsync(IModel obj);
+        Task<IModel> AuthorizeAsync(IModel obj);
     }
 }

@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import authService from './AuthorizeService';
 import { ApplicationPaths } from './ApiAuthorizationConstants';
 
 export class LoginMenu extends Component {
@@ -15,20 +14,12 @@ export class LoginMenu extends Component {
     }
 
     componentDidMount() {
-        this._subscription = authService.subscribe(() => this.populateState());
-        this.populateState();
+        //this._subscription = authService.subscribe(() => this.populateState());
+        //this.populateState();
     }
 
     componentWillUnmount() {
-        authService.unsubscribe(this._subscription);
-    }
-
-    async populateState() {
-        const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
-        this.setState({
-            isAuthenticated,
-            userName: user && user.name
-        });
+        //authService.unsubscribe(this._subscription);
     }
 
     render() {

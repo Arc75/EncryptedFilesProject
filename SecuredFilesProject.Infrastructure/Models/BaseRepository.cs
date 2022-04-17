@@ -1,4 +1,5 @@
-﻿using Firebase.Database;
+﻿using Firebase.Auth;
+using Firebase.Database;
 using Firebase.Database.Query;
 using Newtonsoft.Json;
 using SecuredFilesProject.Infrastructure.Interfaces;
@@ -22,32 +23,58 @@ namespace SecuredFilesProject.Infrastructure.Models
             return instance;
         }
 
-        protected static Firebase.Database.FirebaseClient _context;
+        protected static Firebase.Database.FirebaseClient _firebaseContext;
+        //protected static FirestoreDb _context;
+        protected static Firebase.Auth.FirebaseAuthProvider _auth;
+        private string FirebaseToken = "";
+        private string RefreshToken = "";
 
         protected BaseRepository()
         {
             var connection = "https://dfiles-f71a3-default-rtdb.europe-west1.firebasedatabase.app/";
+            var webApiKey = "AIzaSyAq65qvj-HATRr2bJrNFOW3HK0gOZ7YK78";
 
-            _context = new Firebase.Database.FirebaseClient(connection);
+            _firebaseContext = new Firebase.Database.FirebaseClient(connection);
+            _auth = new FirebaseAuthProvider(new FirebaseConfig(webApiKey));
         }
 
         protected BaseRepository(FirebaseClient context)
         {
-            _context = context;
+            _firebaseContext = context;
+        }
+
+        public async Task<IModel> CreateUserWithPasswordAsync(IModel obj)
+        {
+            var user = (ILoginModel)obj;
+
+            var result = await _auth.CreateUserWithEmailAndPasswordAsync(user.Email, user.Password);
+
+            return obj;
+        }
+
+        public async Task<IModel> AuthorizeAsync(IModel obj)
+        {
+            var user = (ILoginModel)obj;
+
+            var result = await _auth.SignInWithEmailAndPasswordAsync(user.Email, user.Password);
+
+            //todo check 2fa
+
+            return obj;
         }
 
         public async Task<bool> Add(IModel obj)
         {
             var postRequest = JsonConvert.SerializeObject(obj);
 
-            var result = await _context.Child($"{obj.GetType().Name}/").Child(obj.Id.ToString()).PostAsync(postRequest);
+            var result = await _firebaseContext.Child($"{obj.GetType().Name}/").Child(obj.Id.ToString()).PostAsync(postRequest);
 
             return string.IsNullOrEmpty(result.Key);
         }
 
         public async Task<IModel> GetAsync<T>(int id)
         {
-            var result = await _context.Child($"{typeof(T).Name}").Child(id.ToString()).OnceAsync<T>();
+            var result = await _firebaseContext.Child($"{typeof(T).Name}").Child(id.ToString()).OnceAsync<T>();
             return (IModel)result.FirstOrDefault().Object;
         }
 
@@ -93,7 +120,7 @@ namespace SecuredFilesProject.Infrastructure.Models
 
         public void Dispose()
         {
-            _context.Dispose();
+            _firebaseContext.Dispose();
         }
     }
 }

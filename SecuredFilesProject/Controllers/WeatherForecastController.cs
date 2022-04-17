@@ -1,12 +1,9 @@
 ﻿using Google.Authenticator;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SecuredFilesProject.Models.Request;
-using SecuredFilesProject.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SecuredFilesProject.Controllers
 {
@@ -41,11 +38,11 @@ namespace SecuredFilesProject.Controllers
         }
 
         [HttpPost]
-        public LoginViewModel Login(string userName, string password)
+        public Models.Response.LoginViewModel Login(string userName, string password)
         {
             string message = "";
             bool status = false;
-            var response = new LoginViewModel();
+            var response = new Models.Response.LoginViewModel();
 
             if (userName == "Admin" && password == "Password1")
             {
@@ -65,7 +62,7 @@ namespace SecuredFilesProject.Controllers
             response.Message = message;
             response.Status = status;
 
-            return new LoginViewModel();
+            return new Models.Response.LoginViewModel();
         }
 
         public ActionResult Verify2FA(string code)

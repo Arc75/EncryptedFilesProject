@@ -7,10 +7,20 @@
 html {
   font-size: 14px;
 }
+
+header{
+  z-index: 9999;
+  position: relative;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
+}
+
+.navbar-expand-sm{
+  background-color: aliceblue;
 }
 
 .box-shadow {
